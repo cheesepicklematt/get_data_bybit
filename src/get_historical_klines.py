@@ -115,7 +115,7 @@ class klineData:
             except Exception as e:
                 retries += 1
                 print(
-                    f"Attempt {retries} failed for {symbol}. Exception: {str(e)[0:51]}"
+                    f"Attempt {retries} failed for {symbol}. Exception: {str(e)[0:100]}"
                 )
                 time.sleep(30)
                 if retries >= self.max_retries:
