@@ -9,7 +9,7 @@ import sys
 
 sys.path.insert(0, "./")
 
-from cred import cr
+from ..cred import cr
 
 bb_sess = cr.bybit_session()
 
