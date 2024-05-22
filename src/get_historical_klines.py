@@ -110,7 +110,8 @@ class klineData:
                         if not data.empty:
                             symbol_data.append(data)
 
-                    symbol_data = pd.concat(symbol_data).drop_duplicates()
+                    if len(symbol_data) > 0:
+                        symbol_data = pd.concat(symbol_data).drop_duplicates()
                 return symbol_data
             except Exception as e:
                 retries += 1
@@ -128,6 +129,8 @@ class klineData:
             if len(symbol_data) > 0:
                 all_data.append(symbol_data)
                 print(f"{symbol} data extracted ")
+            else:
+                print(f"no data for {symbol}")
 
         merged_data = self._merge_data(df_list=all_data)
         data_queue.put(merged_data)
