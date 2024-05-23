@@ -42,7 +42,7 @@ class klineData:
     """
 
     def __init__(
-        self, symbol_list, interval, extract_dates, category, num_threads
+        self, symbol_list, interval, extract_dates, category, num_threads, num_rows=1000
     ) -> None:
         self.symbol_list = symbol_list
         self.interval = interval
@@ -50,6 +50,7 @@ class klineData:
         self.category = category
         self.num_threads = num_threads
         self.max_retries = 10
+        self.num_rows = num_rows
 
         self.bb_sess = cr.bybit_session()
 
@@ -144,7 +145,7 @@ class klineData:
                 symbol=symbol,
                 start=start,
                 interval=interval,
-                limit=1000,
+                limit=self.num_rows,
             ).get("result")
         else:
             response = self.bb_sess.get_kline(
@@ -153,7 +154,7 @@ class klineData:
                 start=start,
                 end=end,
                 interval=interval,
-                limit=1000,
+                limit=self.num_rows,
             ).get("result")
 
         data = pd.DataFrame(
