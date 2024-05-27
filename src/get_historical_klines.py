@@ -42,7 +42,14 @@ class klineData:
     """
 
     def __init__(
-        self, symbol_list, interval, extract_dates, category, num_threads, num_rows=1000
+        self,
+        symbol_list,
+        interval,
+        extract_dates,
+        category,
+        num_threads,
+        num_rows=1000,
+        verbose=True,
     ) -> None:
         self.symbol_list = symbol_list
         self.interval = interval
@@ -51,6 +58,7 @@ class klineData:
         self.num_threads = num_threads
         self.max_retries = 10
         self.num_rows = num_rows
+        self.verbose = verbose
 
         self.bb_sess = cr.bybit_session()
 
@@ -129,7 +137,8 @@ class klineData:
             symbol_data = self._try_extract(symbol=symbol)
             if len(symbol_data) > 0:
                 all_data.append(symbol_data)
-                print(f"{symbol} data extracted ")
+                if self.verbose:
+                    print(f"{symbol} data extracted ")
             else:
                 print(f"no data for {symbol}")
 
